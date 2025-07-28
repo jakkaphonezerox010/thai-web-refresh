@@ -8,6 +8,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Sparkles } from 'lucide-react';
 import logo from '@/assets/logo.png';
+import { Logo3D } from '@/components/Logo3D';
+import { CharacterAnimation } from '@/components/CharacterAnimation';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -93,18 +95,18 @@ const Register = () => {
         <Sparkles className="w-5 h-5 text-secondary/40" />
       </div>
 
+      {/* Running Character at bottom */}
+      <div className="absolute bottom-4 w-full">
+        <CharacterAnimation type="running" />
+      </div>
+
       <Card className="w-full max-w-md relative z-10 backdrop-blur-sm bg-card/80 border-border/50 shadow-2xl animate-fade-in">
+        {/* Floating Character */}
+        <CharacterAnimation type="floating" />
         <CardHeader className="space-y-6 text-center relative">
-          {/* Animated Logo */}
+          {/* 3D Rotating Logo */}
           <div className="flex justify-center mb-4">
-            <div className="w-20 h-20">
-              <img 
-                src={logo} 
-                alt="Logo" 
-                className="w-full h-full object-contain animate-spin-slow"
-                style={{ animation: 'spin 8s linear infinite' }}
-              />
-            </div>
+            <Logo3D size={100} />
           </div>
           
           <div className="space-y-2">

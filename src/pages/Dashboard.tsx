@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 import { Coins, Plus, LogOut, User } from 'lucide-react';
+import logo from '@/assets/logo.png';
 
 const Dashboard = () => {
   const { user, logout, updateCredits } = useAuth();
@@ -41,7 +42,16 @@ const Dashboard = () => {
       {/* Header */}
       <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold">แดชบอร์ด</h1>
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-lg overflow-hidden">
+              <img 
+                src={logo} 
+                alt="Logo" 
+                className="w-full h-full object-contain"
+              />
+            </div>
+            <h1 className="text-2xl font-bold">แดชบอร์ด</h1>
+          </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <Coins className="w-5 h-5 text-primary" />

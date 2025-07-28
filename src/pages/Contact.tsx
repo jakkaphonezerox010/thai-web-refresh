@@ -13,6 +13,7 @@ import {
   Headphones,
   Zap,
 } from "lucide-react";
+import logo from '@/assets/logo.png';
 
 const Contact = () => {
   const contactMethods = [
@@ -74,6 +75,20 @@ const Contact = () => {
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}
         <div className="text-center mb-16">
+          {/* Animated Logo */}
+          <div className="flex justify-center mb-8">
+            <div className="relative">
+              <div className="w-24 h-24 rounded-2xl overflow-hidden shadow-lg shadow-primary/25 animate-glow">
+                <img 
+                  src={logo} 
+                  alt="Logo" 
+                  className="w-full h-full object-contain animate-pulse"
+                />
+              </div>
+              <div className="absolute -inset-1 bg-gradient-to-r from-primary via-accent to-secondary rounded-2xl opacity-30 blur animate-pulse"></div>
+            </div>
+          </div>
+          
           <Badge variant="secondary" className="mb-4">
             ติดต่อเรา
           </Badge>

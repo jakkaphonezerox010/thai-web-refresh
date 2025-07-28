@@ -26,19 +26,9 @@ function LogoMesh() {
         <meshStandardMaterial 
           map={texture}
           transparent={true}
-          alphaTest={0.1}
+          alphaTest={0.5}
           side={THREE.DoubleSide}
-        />
-      </mesh>
-      
-      {/* Glowing backdrop */}
-      <mesh position={[0, 0, -0.1]}>
-        <planeGeometry args={[2.2, 2.2]} />
-        <meshStandardMaterial 
-          color="#a855f7" 
-          transparent={true}
-          opacity={0.3}
-          side={THREE.DoubleSide}
+          opacity={1}
         />
       </mesh>
     </group>

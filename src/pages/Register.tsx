@@ -101,12 +101,10 @@ const Register = () => {
       </div>
 
       <Card className="w-full max-w-md relative z-10 backdrop-blur-sm bg-card/80 border-border/50 shadow-2xl animate-fade-in">
-        {/* Floating Character */}
-        <CharacterAnimation type="floating" />
         <CardHeader className="space-y-6 text-center relative">
           {/* 3D Rotating Logo */}
           <div className="flex justify-center mb-4">
-            <Logo3D size={100} />
+            <Logo3D size={150} />
           </div>
           
           <div className="space-y-2">

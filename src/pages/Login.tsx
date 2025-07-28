@@ -10,7 +10,7 @@ import { Loader2, Sparkles } from 'lucide-react';
 import logo from '@/assets/logo.png';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
@@ -21,6 +21,8 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
 
+    // Convert username to email format for local storage compatibility
+    const email = `${username}@local.com`;
     const success = await login(email, password);
     
     if (success) {
@@ -32,7 +34,7 @@ const Login = () => {
     } else {
       toast({
         title: "เข้าสู่ระบบไม่สำเร็จ",
-        description: "อีเมลหรือรหัสผ่านไม่ถูกต้อง",
+        description: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง",
         variant: "destructive"
       });
     }
@@ -76,21 +78,21 @@ const Login = () => {
               เข้าสู่ระบบ
             </CardTitle>
             <CardDescription className="text-muted-foreground">
-              กรอกข้อมูลเพื่อเข้าสู่ระบบ
+              กรอกชื่อผู้ใช้และรหัสผ่านเพื่อเข้าสู่ระบบ
             </CardDescription>
           </div>
         </CardHeader>
         <form onSubmit={handleSubmit} className="space-y-6">
           <CardContent className="space-y-5">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium text-foreground/80">อีเมล</Label>
+              <Label htmlFor="username" className="text-sm font-medium text-foreground/80">ชื่อผู้ใช้</Label>
               <div className="relative">
                 <Input
-                  id="email"
-                  type="email"
-                  placeholder="อีเมลของคุณ"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  id="username"
+                  type="text"
+                  placeholder="ชื่อผู้ใช้ของคุณ"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   required
                   className="pl-4 h-12 bg-background/50 border-border/50 focus:border-primary/50 focus:bg-background transition-all duration-300"
                 />

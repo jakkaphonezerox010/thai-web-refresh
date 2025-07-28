@@ -70,8 +70,8 @@ const Login = () => {
       <Card className="w-full max-w-md relative z-10 backdrop-blur-sm bg-card/80 border-border/50 shadow-2xl animate-fade-in">
         <CardHeader className="space-y-2 text-center relative pt-4">
           {/* 3D Rotating Logo */}
-          <div className="flex justify-center mb-2">
-            <Logo3D size={200} />
+          <div className="flex justify-center mb-2 relative -mt-8">
+            <Logo3D size={280} />
           </div>
           
           <div className="space-y-2">

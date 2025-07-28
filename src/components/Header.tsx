@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Gamepad2, User, LogOut } from "lucide-react";
+import { Menu, X, User, LogOut } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import logo from "@/assets/logo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,8 +26,8 @@ const Header = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-primary shadow-glow group-hover:scale-110 transition-transform duration-300">
-              <Gamepad2 className="h-6 w-6 text-primary-foreground" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg overflow-hidden group-hover:scale-110 transition-transform duration-300">
+              <img src={logo} alt="Dobules Six Logo" className="h-full w-full object-contain" />
             </div>
             <div className="hidden sm:block">
               <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">

@@ -104,7 +104,7 @@ const Register = () => {
         <CardHeader className="space-y-6 text-center relative">
           {/* 3D Rotating Logo */}
           <div className="flex justify-center mb-4">
-            <Logo3D size={150} />
+            <Logo3D size={200} />
           </div>
           
           <div className="space-y-2">

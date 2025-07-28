@@ -3,9 +3,28 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
-import { Coins, Plus, LogOut, User } from 'lucide-react';
+import { 
+  Coins, 
+  Plus, 
+  LogOut, 
+  User, 
+  Crown, 
+  Globe, 
+  Server, 
+  Shield, 
+  TrendingUp, 
+  Clock, 
+  Bell,
+  Settings,
+  BarChart3,
+  Zap,
+  Package,
+  Heart,
+  Star
+} from 'lucide-react';
 import logo from '@/assets/logo.png';
 
 const Dashboard = () => {
@@ -38,179 +57,337 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted/50">
-      {/* Header */}
-      <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10">
-              <img 
-                src={logo} 
-                alt="Logo" 
-                className="w-full h-full object-contain"
-              />
+    <div className="min-h-screen bg-gradient-hero">
+      {/* Modern Header */}
+      <div className="border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60 shadow-lg">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 p-2 bg-gradient-primary rounded-xl shadow-lg">
+                <img 
+                  src={logo} 
+                  alt="Logo" 
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+                  ยินดีต้อนรับ, {user.name}
+                </h1>
+                <p className="text-sm text-muted-foreground">ระบบจัดการเว็บไซต์ของคุณ</p>
+              </div>
             </div>
-            <h1 className="text-2xl font-bold">แดชบอร์ด</h1>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              <Coins className="w-5 h-5 text-primary" />
-              <Badge variant="secondary" className="text-lg px-3 py-1">
-                {user.credits} เครดิต
-              </Badge>
+            
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 bg-gradient-card rounded-lg px-4 py-2 border border-primary/20">
+                <Coins className="w-5 h-5 text-primary animate-bounce" />
+                <div className="text-right">
+                  <div className="text-2xl font-bold text-primary">{user.credits}</div>
+                  <div className="text-xs text-muted-foreground">เครดิต</div>
+                </div>
+              </div>
+              
+              <Button variant="outline" size="sm" className="hover:bg-destructive/10">
+                <Bell className="w-4 h-4 mr-2" />
+                แจ้งเตือน
+              </Button>
+              
+              <Button variant="outline" onClick={handleLogout} className="hover:bg-destructive/10">
+                <LogOut className="w-4 h-4 mr-2" />
+                ออกจากระบบ
+              </Button>
             </div>
-            <Button variant="outline" onClick={handleLogout}>
-              <LogOut className="w-4 h-4 mr-2" />
-              ออกจากระบบ
-            </Button>
           </div>
         </div>
       </div>
 
       <div className="container mx-auto px-4 py-8">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {/* User Profile Card */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <User className="w-5 h-5" />
-                ข้อมูลผู้ใช้
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
+        {/* Stats Overview */}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
+          <Card className="bg-gradient-card border-primary/20 hover:shadow-glow transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">ชื่อ</p>
-                  <p className="font-medium">{user.name}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">อีเมล</p>
-                  <p className="font-medium">{user.email}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">สมาชิกตั้งแต่</p>
-                  <p className="font-medium">
-                    {new Date(user.createdAt).toLocaleDateString('th-TH')}
+                  <p className="text-sm text-muted-foreground mb-1">เว็บไซต์ที่เช่า</p>
+                  <p className="text-3xl font-bold text-primary">3</p>
+                  <p className="text-xs text-success flex items-center mt-1">
+                    <TrendingUp className="w-3 h-3 mr-1" />
+                    +1 เดือนนี้
                   </p>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Credits Card */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Coins className="w-5 h-5" />
-                เครดิตคงเหลือ
-              </CardTitle>
-              <CardDescription>
-                ใช้เครดิตเพื่อเข้าถึงบริการต่างๆ
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-primary mb-4">
-                {user.credits} เครดิต
-              </div>
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span>สถานะ:</span>
-                  <Badge variant={user.credits > 0 ? "default" : "destructive"}>
-                    {user.credits > 0 ? "ใช้งานได้" : "หมดเครดิต"}
-                  </Badge>
+                <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <Globe className="h-6 w-6 text-primary" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          {/* Top Up Card */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Plus className="w-5 h-5" />
-                เติมเครดิต
-              </CardTitle>
-              <CardDescription>
-                เลือกแพ็คเกจเครดิตที่ต้องการ
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <Button 
-                  onClick={() => handleTopUp(50)} 
-                  variant="outline" 
-                  className="w-full justify-between"
-                >
-                  <span>50 เครดิต</span>
-                  <span className="text-muted-foreground">ฟรี</span>
-                </Button>
-                <Button 
-                  onClick={() => handleTopUp(100)} 
-                  variant="outline" 
-                  className="w-full justify-between"
-                >
-                  <span>100 เครดิต</span>
-                  <span className="text-muted-foreground">ฟรี</span>
-                </Button>
-                <Button 
-                  onClick={() => handleTopUp(200)} 
-                  variant="outline" 
-                  className="w-full justify-between"
-                >
-                  <span>200 เครดิต</span>
-                  <span className="text-muted-foreground">ฟรี</span>
-                </Button>
+          <Card className="bg-gradient-card border-accent/20 hover:shadow-glow transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">เซิร์ฟเวอร์ออนไลน์</p>
+                  <p className="text-3xl font-bold text-accent">2</p>
+                  <p className="text-xs text-success flex items-center mt-1">
+                    <Shield className="w-3 h-3 mr-1" />
+                    ปลอดภัย
+                  </p>
+                </div>
+                <div className="h-12 w-12 rounded-lg bg-accent/10 flex items-center justify-center">
+                  <Server className="h-6 w-6 text-accent" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-card border-success/20 hover:shadow-glow transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">เวลาใช้งาน</p>
+                  <p className="text-3xl font-bold text-success">99.9%</p>
+                  <p className="text-xs text-muted-foreground flex items-center mt-1">
+                    <Clock className="w-3 h-3 mr-1" />
+                    30 วันที่แล้ว
+                  </p>
+                </div>
+                <div className="h-12 w-12 rounded-lg bg-success/10 flex items-center justify-center">
+                  <BarChart3 className="h-6 w-6 text-success" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-card border-warning/20 hover:shadow-glow transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">เครดิตคงเหลือ</p>
+                  <p className="text-3xl font-bold text-warning">{user.credits}</p>
+                  <Progress value={(user.credits / 1000) * 100} className="w-full mt-2 h-2" />
+                </div>
+                <div className="h-12 w-12 rounded-lg bg-warning/10 flex items-center justify-center">
+                  <Coins className="h-6 w-6 text-warning" />
+                </div>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Services Section */}
-        <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-4">บริการ</h2>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            <Card className="cursor-pointer hover:shadow-md transition-shadow">
+        {/* Main Content Grid */}
+        <div className="grid gap-8 lg:grid-cols-3">
+          {/* Left Column */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Quick Actions */}
+            <Card className="bg-gradient-card border-primary/20">
               <CardHeader>
-                <CardTitle>บริการ A</CardTitle>
-                <CardDescription>ค่าใช้จ่าย: 10 เครดิต</CardDescription>
+                <CardTitle className="flex items-center gap-2">
+                  <Zap className="h-5 w-5 text-primary" />
+                  การดำเนินการด่วน
+                </CardTitle>
+                <CardDescription>
+                  จัดการเว็บไซต์และเซิร์ฟเวอร์ของคุณ
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  รายละเอียดบริการ A
-                </p>
-                <Button className="w-full" disabled={user.credits < 10}>
-                  {user.credits < 10 ? "เครดิตไม่เพียงพอ" : "ใช้บริการ"}
-                </Button>
+                <div className="grid gap-4 md:grid-cols-2">
+                  <Button className="h-16 flex-col gap-2 bg-gradient-to-r from-primary to-accent hover:shadow-glow">
+                    <Globe className="h-6 w-6" />
+                    <span>สร้างเว็บไซต์ใหม่</span>
+                  </Button>
+                  <Button variant="outline" className="h-16 flex-col gap-2 hover:bg-primary/10">
+                    <Server className="h-6 w-6" />
+                    <span>จัดการเซิร์ฟเวอร์</span>
+                  </Button>
+                  <Button variant="outline" className="h-16 flex-col gap-2 hover:bg-accent/10">
+                    <Package className="h-6 w-6" />
+                    <span>อัปเกรดแพ็คเกจ</span>
+                  </Button>
+                  <Button variant="outline" className="h-16 flex-col gap-2 hover:bg-secondary/10">
+                    <Settings className="h-6 w-6" />
+                    <span>ตั้งค่าระบบ</span>
+                  </Button>
+                </div>
               </CardContent>
             </Card>
 
-            <Card className="cursor-pointer hover:shadow-md transition-shadow">
+            {/* Website Management */}
+            <Card className="bg-gradient-card border-primary/20">
               <CardHeader>
-                <CardTitle>บริการ B</CardTitle>
-                <CardDescription>ค่าใช้จ่าย: 25 เครดิต</CardDescription>
+                <CardTitle className="flex items-center gap-2">
+                  <Globe className="h-5 w-5 text-primary" />
+                  เว็บไซต์ของคุณ
+                </CardTitle>
+                <CardDescription>
+                  จัดการเว็บไซต์ที่เช่าอยู่
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  รายละเอียดบริการ B
-                </p>
-                <Button className="w-full" disabled={user.credits < 25}>
-                  {user.credits < 25 ? "เครดิตไม่เพียงพอ" : "ใช้บริการ"}
-                </Button>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between p-4 border border-primary/20 rounded-lg bg-background/50">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
+                        <Globe className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <p className="font-medium">FiveM Server #1</p>
+                        <p className="text-sm text-muted-foreground">myserver.example.com</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Badge variant="outline" className="text-success border-success/30">
+                        ออนไลน์
+                      </Badge>
+                      <Button size="sm" variant="outline">
+                        จัดการ
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between p-4 border border-primary/20 rounded-lg bg-background/50">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
+                        <Globe className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <p className="font-medium">Website Portfolio</p>
+                        <p className="text-sm text-muted-foreground">myportfolio.example.com</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Badge variant="outline" className="text-success border-success/30">
+                        ออนไลน์
+                      </Badge>
+                      <Button size="sm" variant="outline">
+                        จัดการ
+                      </Button>
+                    </div>
+                  </div>
+
+                  <Button variant="outline" className="w-full">
+                    <Plus className="w-4 h-4 mr-2" />
+                    เพิ่มเว็บไซต์ใหม่
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Right Column */}
+          <div className="space-y-6">
+            {/* Profile Card */}
+            <Card className="bg-gradient-card border-primary/20">
+              <CardHeader className="text-center">
+                <div className="mx-auto w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mb-4">
+                  <User className="w-10 h-10 text-white" />
+                </div>
+                <CardTitle className="text-xl">{user.name}</CardTitle>
+                <CardDescription>{user.email}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">สถานะ:</span>
+                    <Badge className="bg-gradient-to-r from-primary to-accent text-white">
+                      <Crown className="w-3 h-3 mr-1" />
+                      Premium
+                    </Badge>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">สมาชิกตั้งแต่:</span>
+                    <span className="text-sm font-medium">
+                      {new Date(user.createdAt).toLocaleDateString('th-TH')}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">คะแนนความพึงพอใจ:</span>
+                    <div className="flex items-center gap-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-3 h-3 text-warning fill-current" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </CardContent>
             </Card>
 
-            <Card className="cursor-pointer hover:shadow-md transition-shadow">
+            {/* Credit Top-up */}
+            <Card className="bg-gradient-card border-accent/20">
               <CardHeader>
-                <CardTitle>บริการ C</CardTitle>
-                <CardDescription>ค่าใช้จ่าย: 50 เครดิต</CardDescription>
+                <CardTitle className="flex items-center gap-2">
+                  <Plus className="h-5 w-5 text-accent" />
+                  เติมเครดิต
+                </CardTitle>
+                <CardDescription>
+                  เลือกแพ็คเกจที่เหมาะกับคุณ
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  รายละเอียดบริการ C
-                </p>
-                <Button className="w-full" disabled={user.credits < 50}>
-                  {user.credits < 50 ? "เครดิตไม่เพียงพอ" : "ใช้บริการ"}
-                </Button>
+                <div className="space-y-3">
+                  <Button 
+                    onClick={() => handleTopUp(100)} 
+                    variant="outline" 
+                    className="w-full justify-between hover:bg-primary/10 h-12"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Coins className="w-4 h-4" />
+                      <span>100 เครดิต</span>
+                    </div>
+                    <Badge variant="secondary">ฟรี</Badge>
+                  </Button>
+                  
+                  <Button 
+                    onClick={() => handleTopUp(500)} 
+                    variant="outline" 
+                    className="w-full justify-between hover:bg-accent/10 h-12"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Coins className="w-4 h-4" />
+                      <span>500 เครดิต</span>
+                    </div>
+                    <Badge variant="secondary">+50 โบนัส</Badge>
+                  </Button>
+                  
+                  <Button 
+                    onClick={() => handleTopUp(1000)} 
+                    className="w-full justify-between bg-gradient-to-r from-primary to-accent h-12"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Crown className="w-4 h-4" />
+                      <span>1000 เครดิต</span>
+                    </div>
+                    <Badge variant="secondary">+200 โบนัส</Badge>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Recent Activity */}
+            <Card className="bg-gradient-card border-primary/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Clock className="h-5 w-5 text-primary" />
+                  กิจกรรมล่าสุด
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3 text-sm">
+                    <div className="w-2 h-2 bg-success rounded-full"></div>
+                    <span>เว็บไซต์ออนไลน์</span>
+                    <span className="text-muted-foreground ml-auto">2 นาทีที่แล้ว</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <span>เติมเครดิต 100</span>
+                    <span className="text-muted-foreground ml-auto">1 ชั่วโมงที่แล้ว</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-sm">
+                    <div className="w-2 h-2 bg-accent rounded-full"></div>
+                    <span>อัปเดทระบบ</span>
+                    <span className="text-muted-foreground ml-auto">3 ชั่วโมงที่แล้ว</span>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>

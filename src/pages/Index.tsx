@@ -110,10 +110,12 @@ const Index = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
-              <Button variant="hero" size="xl" className="animate-glow group">
-                ทดลองใช้ฟรี 7 วัน
-                <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              <Link to="/register">
+                <Button variant="hero" size="xl" className="animate-glow group">
+                  เริ่มใช้งานฟรี
+                  <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
               
               <Link to="/packages">
                 <Button variant="outline" size="xl">
@@ -210,9 +212,9 @@ const Index = () => {
                   <Users className="h-5 w-5 text-primary" />
                   <span className="text-sm">สมาชิกไม่จำกัด</span>
                 </div>
-                <Link to="/demo">
+                <Link to="/register">
                   <Button variant="outline" size="sm" className="w-full">
-                    ทดลองใช้งาน
+                    เริ่มใช้งาน
                   </Button>
                 </Link>
               </CardContent>
@@ -314,10 +316,12 @@ const Index = () => {
               ไม่มีค่าใช้จ่าย ไม่ต้องใส่บัตรเครดิต
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Button variant="hero" size="xl" className="animate-glow group">
-                เริ่มทดลองใช้ฟรี 7 วัน
-                <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              <Link to="/register">
+                <Button variant="hero" size="xl" className="animate-glow group">
+                  เริ่มใช้งานฟรี
+                  <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
               <Link to="/contact">
                 <Button variant="outline" size="xl">
                   ติดต่อเรา

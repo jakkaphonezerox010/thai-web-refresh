@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Gamepad2 } from "lucide-react";
+import { Menu, X, Gamepad2, User, LogOut } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { user, logout } = useAuth();
 
   const navigation = [
     { name: "หน้าหลัก", href: "/" },
@@ -49,11 +51,40 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Button */}
+          {/* Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="hero" size="sm" className="animate-glow">
-              ทดลองใช้ฟรี 7 วัน
-            </Button>
+            {user ? (
+              <div className="flex items-center space-x-4">
+                <Link to="/dashboard">
+                  <Button variant="outline" size="sm" className="flex items-center gap-2">
+                    <User className="h-4 w-4" />
+                    {user.name}
+                  </Button>
+                </Link>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={logout}
+                  className="flex items-center gap-2"
+                >
+                  <LogOut className="h-4 w-4" />
+                  ออกจากระบบ
+                </Button>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-2">
+                <Link to="/login">
+                  <Button variant="outline" size="sm">
+                    เข้าสู่ระบบ
+                  </Button>
+                </Link>
+                <Link to="/register">
+                  <Button variant="hero" size="sm" className="animate-glow">
+                    สมัครสมาชิก
+                  </Button>
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -91,14 +122,41 @@ const Header = () => {
                   </Button>
                 </Link>
               ))}
-              <div className="pt-4">
-                <Button 
-                  variant="hero" 
-                  className="w-full animate-glow"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  ทดลองใช้ฟรี 7 วัน
-                </Button>
+              <div className="pt-4 space-y-2">
+                {user ? (
+                  <>
+                    <Link to="/dashboard" onClick={() => setIsMenuOpen(false)}>
+                      <Button variant="outline" className="w-full flex items-center gap-2">
+                        <User className="h-4 w-4" />
+                        {user.name}
+                      </Button>
+                    </Link>
+                    <Button 
+                      variant="ghost" 
+                      className="w-full flex items-center gap-2"
+                      onClick={() => {
+                        logout();
+                        setIsMenuOpen(false);
+                      }}
+                    >
+                      <LogOut className="h-4 w-4" />
+                      ออกจากระบบ
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/login" onClick={() => setIsMenuOpen(false)}>
+                      <Button variant="outline" className="w-full">
+                        เข้าสู่ระบบ
+                      </Button>
+                    </Link>
+                    <Link to="/register" onClick={() => setIsMenuOpen(false)}>
+                      <Button variant="hero" className="w-full animate-glow">
+                        สมัครสมาชิก
+                      </Button>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </div>

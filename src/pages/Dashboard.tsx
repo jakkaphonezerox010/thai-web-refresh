@@ -43,7 +43,7 @@ const Dashboard = () => {
       <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-lg overflow-hidden">
+            <div className="w-10 h-10">
               <img 
                 src={logo} 
                 alt="Logo" 

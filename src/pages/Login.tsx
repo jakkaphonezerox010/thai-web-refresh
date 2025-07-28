@@ -62,15 +62,12 @@ const Login = () => {
         <CardHeader className="space-y-6 text-center relative">
           {/* Animated Logo */}
           <div className="flex justify-center mb-4">
-            <div className="relative">
-              <div className="w-20 h-20 rounded-2xl overflow-hidden shadow-lg shadow-primary/25 animate-glow">
-                <img 
-                  src={logo} 
-                  alt="Logo" 
-                  className="w-full h-full object-contain animate-pulse"
-                />
-              </div>
-              <div className="absolute -inset-1 bg-gradient-to-r from-primary via-accent to-secondary rounded-2xl opacity-30 blur animate-pulse"></div>
+            <div className="w-20 h-20 animate-pulse">
+              <img 
+                src={logo} 
+                alt="Logo" 
+                className="w-full h-full object-contain"
+              />
             </div>
           </div>
           

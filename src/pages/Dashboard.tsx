@@ -31,12 +31,20 @@ import logo from '@/assets/logo.png';
 import { NotificationPanel } from '@/components/NotificationPanel';
 import { CreditTopup } from '@/components/CreditTopup';
 import { WebsiteCard } from '@/components/WebsiteCard';
+import { CreateWebsite } from '@/components/CreateWebsite';
+import { ServerManager } from '@/components/ServerManager';
+import { PackageUpgrade } from '@/components/PackageUpgrade';
+import { SystemSettings } from '@/components/SystemSettings';
 
 const Dashboard = () => {
   const { user, logout, updateCredits } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [isCreateWebsiteOpen, setIsCreateWebsiteOpen] = useState(false);
+  const [isServerManagerOpen, setIsServerManagerOpen] = useState(false);
+  const [isPackageUpgradeOpen, setIsPackageUpgradeOpen] = useState(false);
+  const [isSystemSettingsOpen, setIsSystemSettingsOpen] = useState(false);
 
   // อัพเดทเวลาทุกวินาที
   useEffect(() => {
@@ -110,11 +118,11 @@ const Dashboard = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 p-2 rounded-xl shadow-lg">
+              <div className="w-16 h-16 p-2 rounded-xl">
                 <img 
                   src={logo} 
                   alt="Logo" 
-                  className="w-full h-full object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
+                  className="w-full h-full object-contain transition-transform duration-300 hover:scale-110"
                 />
               </div>
               <div>
@@ -237,12 +245,7 @@ const Dashboard = () => {
                 <div className="grid gap-4 md:grid-cols-2">
                   <Button 
                     className="h-16 flex-col gap-2 bg-gradient-to-r from-primary to-accent hover:shadow-glow transition-all duration-300 hover:scale-105"
-                    onClick={() => {
-                      toast({
-                        title: "สร้างเว็บไซต์ใหม่",
-                        description: "กำลังเปิดหน้าสร้างเว็บไซต์ใหม่",
-                      });
-                    }}
+                    onClick={() => setIsCreateWebsiteOpen(true)}
                   >
                     <Globe className="h-6 w-6 animate-pulse" />
                     <span>สร้างเว็บไซต์ใหม่</span>
@@ -250,12 +253,7 @@ const Dashboard = () => {
                   <Button 
                     variant="outline" 
                     className="h-16 flex-col gap-2 hover:bg-primary/10 transition-all duration-300 hover:scale-105"
-                    onClick={() => {
-                      toast({
-                        title: "จัดการเซิร์ฟเวอร์",
-                        description: "เปิดหน้าจัดการเซิร์ฟเวอร์",
-                      });
-                    }}
+                    onClick={() => setIsServerManagerOpen(true)}
                   >
                     <Server className="h-6 w-6" />
                     <span>จัดการเซิร์ฟเวอร์</span>
@@ -263,12 +261,7 @@ const Dashboard = () => {
                   <Button 
                     variant="outline" 
                     className="h-16 flex-col gap-2 hover:bg-accent/10 transition-all duration-300 hover:scale-105"
-                    onClick={() => {
-                      toast({
-                        title: "อัปเกรดแพ็คเกจ",
-                        description: "เปิดหน้าเลือกแพ็คเกจ",
-                      });
-                    }}
+                    onClick={() => setIsPackageUpgradeOpen(true)}
                   >
                     <Package className="h-6 w-6" />
                     <span>อัปเกรดแพ็คเกจ</span>
@@ -276,12 +269,7 @@ const Dashboard = () => {
                   <Button 
                     variant="outline" 
                     className="h-16 flex-col gap-2 hover:bg-secondary/10 transition-all duration-300 hover:scale-105"
-                    onClick={() => {
-                      toast({
-                        title: "ตั้งค่าระบบ",
-                        description: "เปิดหน้าตั้งค่าระบบ",
-                      });
-                    }}
+                    onClick={() => setIsSystemSettingsOpen(true)}
                   >
                     <Settings className="h-6 w-6" />
                     <span>ตั้งค่าระบบ</span>
@@ -319,12 +307,7 @@ const Dashboard = () => {
                   <Button 
                     variant="outline" 
                     className="w-full hover:bg-primary/10 transition-all duration-300 hover:scale-105"
-                    onClick={() => {
-                      toast({
-                        title: "เพิ่มเว็บไซต์ใหม่",
-                        description: "กำลังเปิดหน้าสร้างเว็บไซต์ใหม่",
-                      });
-                    }}
+                    onClick={() => setIsCreateWebsiteOpen(true)}
                   >
                     <Plus className="w-4 h-4 mr-2" />
                     เพิ่มเว็บไซต์ใหม่
@@ -406,6 +389,12 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+
+      {/* Dialog Components */}
+      <CreateWebsite isOpen={isCreateWebsiteOpen} onClose={() => setIsCreateWebsiteOpen(false)} />
+      <ServerManager isOpen={isServerManagerOpen} onClose={() => setIsServerManagerOpen(false)} />
+      <PackageUpgrade isOpen={isPackageUpgradeOpen} onClose={() => setIsPackageUpgradeOpen(false)} />
+      <SystemSettings isOpen={isSystemSettingsOpen} onClose={() => setIsSystemSettingsOpen(false)} />
     </div>
   );
 };

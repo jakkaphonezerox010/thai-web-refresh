@@ -114,37 +114,53 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       {/* Modern Header */}
-      <div className="border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60 shadow-lg">
-        <div className="container mx-auto px-4 py-4">
+      <div className="border-b bg-gradient-to-r from-card/95 to-primary/5 backdrop-blur supports-[backdrop-filter]:bg-card/60 shadow-xl">
+        <div className="container mx-auto px-6 py-6">
           <div className="flex justify-between items-center">
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 p-2 rounded-xl">
-                <img 
-                  src={logo} 
-                  alt="Logo" 
-                  className="w-full h-full object-contain transition-transform duration-300 hover:scale-110"
-                />
+            <div className="flex items-center gap-6">
+              <div className="relative">
+                <div className="w-16 h-16 p-3 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 backdrop-blur border border-primary/30 shadow-lg hover:shadow-primary/25 transition-all duration-300">
+                  <img 
+                    src={logo} 
+                    alt="Logo" 
+                    className="w-full h-full object-contain transition-transform duration-300 hover:scale-110"
+                  />
+                </div>
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-primary to-accent rounded-full animate-pulse"></div>
               </div>
-              <div>
-                <h1 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+              <div className="space-y-1">
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-fade-in">
                   ยินดีต้อนรับ, {user.name}
                 </h1>
-                <p className="text-sm text-muted-foreground">ระบบจัดการเว็บไซต์ของคุณ</p>
+                <p className="text-muted-foreground font-medium">ระบบจัดการเว็บไซต์และเซิร์ฟเวอร์</p>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Clock className="w-4 h-4" />
+                  <span>{currentTime.toLocaleString('th-TH')}</span>
+                </div>
               </div>
             </div>
             
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 bg-gradient-card rounded-lg px-4 py-2 border border-primary/20">
-                <Coins className="w-5 h-5 text-primary animate-bounce" />
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-3 bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl px-6 py-4 border border-primary/20 shadow-lg hover:shadow-primary/25 transition-all duration-300">
+                <div className="relative">
+                  <Coins className="w-6 h-6 text-primary animate-bounce" />
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full"></div>
+                </div>
                 <div className="text-right">
-                  <div className="text-2xl font-bold text-primary">{user.credits}</div>
-                  <div className="text-xs text-muted-foreground">เครดิต</div>
+                  <div className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                    {user.credits.toLocaleString()}
+                  </div>
+                  <div className="text-xs text-muted-foreground font-medium">เครดิตคงเหลือ</div>
                 </div>
               </div>
               
               <NotificationPanel />
               
-              <Button variant="outline" onClick={handleLogout} className="hover:bg-destructive/10">
+              <Button 
+                variant="outline" 
+                onClick={handleLogout} 
+                className="hover:bg-destructive/10 hover:border-destructive/50 hover:text-destructive transition-all duration-300 px-6 py-3 rounded-xl"
+              >
                 <LogOut className="w-4 h-4 mr-2" />
                 ออกจากระบบ
               </Button>

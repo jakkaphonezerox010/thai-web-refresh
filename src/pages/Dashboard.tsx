@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -17,20 +17,67 @@ import {
   Shield, 
   TrendingUp, 
   Clock, 
-  Bell,
   Settings,
   BarChart3,
   Zap,
   Package,
   Heart,
-  Star
+  Star,
+  Activity,
+  Users,
+  Database
 } from 'lucide-react';
 import logo from '@/assets/logo.png';
+import { NotificationPanel } from '@/components/NotificationPanel';
+import { CreditTopup } from '@/components/CreditTopup';
+import { WebsiteCard } from '@/components/WebsiteCard';
 
 const Dashboard = () => {
   const { user, logout, updateCredits } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  // อัพเดทเวลาทุกวินาที
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // ข้อมูลเว็บไซต์จำลอง
+  const websites = [
+    {
+      id: '1',
+      name: 'FiveM Server #1',
+      domain: 'fivem-server1.myhost.com',
+      status: 'online' as const,
+      type: 'fivem' as const,
+      players: 47,
+      maxPlayers: 64,
+      uptime: 99.8,
+      lastSeen: '2 นาทีที่แล้ว'
+    },
+    {
+      id: '2',
+      name: 'Website Portfolio',
+      domain: 'portfolio.myhost.com',
+      status: 'online' as const,
+      type: 'website' as const,
+      uptime: 99.9,
+      lastSeen: '1 นาทีที่แล้ว'
+    },
+    {
+      id: '3',
+      name: 'E-commerce Store',
+      domain: 'shop.myhost.com',
+      status: 'maintenance' as const,
+      type: 'website' as const,
+      uptime: 95.2,
+      lastSeen: '30 นาทีที่แล้ว'
+    }
+  ];
 
   const handleLogout = () => {
     logout();
@@ -63,11 +110,11 @@ const Dashboard = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 p-2 bg-gradient-primary rounded-xl shadow-lg">
+              <div className="w-12 h-12 p-2 rounded-xl shadow-lg">
                 <img 
                   src={logo} 
                   alt="Logo" 
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
                 />
               </div>
               <div>
@@ -87,10 +134,7 @@ const Dashboard = () => {
                 </div>
               </div>
               
-              <Button variant="outline" size="sm" className="hover:bg-destructive/10">
-                <Bell className="w-4 h-4 mr-2" />
-                แจ้งเตือน
-              </Button>
+              <NotificationPanel />
               
               <Button variant="outline" onClick={handleLogout} className="hover:bg-destructive/10">
                 <LogOut className="w-4 h-4 mr-2" />
@@ -191,19 +235,54 @@ const Dashboard = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid gap-4 md:grid-cols-2">
-                  <Button className="h-16 flex-col gap-2 bg-gradient-to-r from-primary to-accent hover:shadow-glow">
-                    <Globe className="h-6 w-6" />
+                  <Button 
+                    className="h-16 flex-col gap-2 bg-gradient-to-r from-primary to-accent hover:shadow-glow transition-all duration-300 hover:scale-105"
+                    onClick={() => {
+                      toast({
+                        title: "สร้างเว็บไซต์ใหม่",
+                        description: "กำลังเปิดหน้าสร้างเว็บไซต์ใหม่",
+                      });
+                    }}
+                  >
+                    <Globe className="h-6 w-6 animate-pulse" />
                     <span>สร้างเว็บไซต์ใหม่</span>
                   </Button>
-                  <Button variant="outline" className="h-16 flex-col gap-2 hover:bg-primary/10">
+                  <Button 
+                    variant="outline" 
+                    className="h-16 flex-col gap-2 hover:bg-primary/10 transition-all duration-300 hover:scale-105"
+                    onClick={() => {
+                      toast({
+                        title: "จัดการเซิร์ฟเวอร์",
+                        description: "เปิดหน้าจัดการเซิร์ฟเวอร์",
+                      });
+                    }}
+                  >
                     <Server className="h-6 w-6" />
                     <span>จัดการเซิร์ฟเวอร์</span>
                   </Button>
-                  <Button variant="outline" className="h-16 flex-col gap-2 hover:bg-accent/10">
+                  <Button 
+                    variant="outline" 
+                    className="h-16 flex-col gap-2 hover:bg-accent/10 transition-all duration-300 hover:scale-105"
+                    onClick={() => {
+                      toast({
+                        title: "อัปเกรดแพ็คเกจ",
+                        description: "เปิดหน้าเลือกแพ็คเกจ",
+                      });
+                    }}
+                  >
                     <Package className="h-6 w-6" />
                     <span>อัปเกรดแพ็คเกจ</span>
                   </Button>
-                  <Button variant="outline" className="h-16 flex-col gap-2 hover:bg-secondary/10">
+                  <Button 
+                    variant="outline" 
+                    className="h-16 flex-col gap-2 hover:bg-secondary/10 transition-all duration-300 hover:scale-105"
+                    onClick={() => {
+                      toast({
+                        title: "ตั้งค่าระบบ",
+                        description: "เปิดหน้าตั้งค่าระบบ",
+                      });
+                    }}
+                  >
                     <Settings className="h-6 w-6" />
                     <span>ตั้งค่าระบบ</span>
                   </Button>
@@ -224,47 +303,29 @@ const Dashboard = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 border border-primary/20 rounded-lg bg-background/50">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
-                        <Globe className="w-5 h-5 text-white" />
-                      </div>
-                      <div>
-                        <p className="font-medium">FiveM Server #1</p>
-                        <p className="text-sm text-muted-foreground">myserver.example.com</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Badge variant="outline" className="text-success border-success/30">
-                        ออนไลน์
-                      </Badge>
-                      <Button size="sm" variant="outline">
-                        จัดการ
-                      </Button>
-                    </div>
-                  </div>
+                  {websites.map((website) => (
+                    <WebsiteCard 
+                      key={website.id} 
+                      website={website} 
+                      onManage={(site) => {
+                        toast({
+                          title: "เปิดหน้าจัดการ",
+                          description: `กำลังเปิดหน้าจัดการสำหรับ ${site.name}`,
+                        });
+                      }} 
+                    />
+                  ))}
 
-                  <div className="flex items-center justify-between p-4 border border-primary/20 rounded-lg bg-background/50">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
-                        <Globe className="w-5 h-5 text-white" />
-                      </div>
-                      <div>
-                        <p className="font-medium">Website Portfolio</p>
-                        <p className="text-sm text-muted-foreground">myportfolio.example.com</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Badge variant="outline" className="text-success border-success/30">
-                        ออนไลน์
-                      </Badge>
-                      <Button size="sm" variant="outline">
-                        จัดการ
-                      </Button>
-                    </div>
-                  </div>
-
-                  <Button variant="outline" className="w-full">
+                  <Button 
+                    variant="outline" 
+                    className="w-full hover:bg-primary/10 transition-all duration-300 hover:scale-105"
+                    onClick={() => {
+                      toast({
+                        title: "เพิ่มเว็บไซต์ใหม่",
+                        description: "กำลังเปิดหน้าสร้างเว็บไซต์ใหม่",
+                      });
+                    }}
+                  >
                     <Plus className="w-4 h-4 mr-2" />
                     เพิ่มเว็บไซต์ใหม่
                   </Button>
@@ -312,55 +373,7 @@ const Dashboard = () => {
             </Card>
 
             {/* Credit Top-up */}
-            <Card className="bg-gradient-card border-accent/20">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Plus className="h-5 w-5 text-accent" />
-                  เติมเครดิต
-                </CardTitle>
-                <CardDescription>
-                  เลือกแพ็คเกจที่เหมาะกับคุณ
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <Button 
-                    onClick={() => handleTopUp(100)} 
-                    variant="outline" 
-                    className="w-full justify-between hover:bg-primary/10 h-12"
-                  >
-                    <div className="flex items-center gap-2">
-                      <Coins className="w-4 h-4" />
-                      <span>100 เครดิต</span>
-                    </div>
-                    <Badge variant="secondary">ฟรี</Badge>
-                  </Button>
-                  
-                  <Button 
-                    onClick={() => handleTopUp(500)} 
-                    variant="outline" 
-                    className="w-full justify-between hover:bg-accent/10 h-12"
-                  >
-                    <div className="flex items-center gap-2">
-                      <Coins className="w-4 h-4" />
-                      <span>500 เครดิต</span>
-                    </div>
-                    <Badge variant="secondary">+50 โบนัส</Badge>
-                  </Button>
-                  
-                  <Button 
-                    onClick={() => handleTopUp(1000)} 
-                    className="w-full justify-between bg-gradient-to-r from-primary to-accent h-12"
-                  >
-                    <div className="flex items-center gap-2">
-                      <Crown className="w-4 h-4" />
-                      <span>1000 เครดิต</span>
-                    </div>
-                    <Badge variant="secondary">+200 โบนัส</Badge>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            <CreditTopup />
 
             {/* Recent Activity */}
             <Card className="bg-gradient-card border-primary/20">
